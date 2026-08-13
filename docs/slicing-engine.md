@@ -1,5 +1,11 @@
 # 切片引擎算法可视化
 
+先看 **3D 演示动画**（可交互，带时间轴）：
+
+打开 [`docs/slicing-engine-demo/index.html`](slicing-engine-demo/index.html)（需本地静态服务，见该目录说明）。演示按真实切层几何播放：切平面扫过模型 → 层堆叠 → Classic/Arachne 墙 → 直线填充 → 悬空支撑 → 喷头走路径。
+
+下面用流程图对照 `src/libslic3r/` 源码，把同一套算法拆开说明。
+
 对照 `src/libslic3r/` 源码，把 FFF 切片从三角网格走到 G-code 的算法逻辑拆开画清楚。入口是 `Print::process()`（`Print.cpp`），每个物体走 `PrintObject` 上的分步状态机。
 
 坐标约定：几何运算用整数微米（`coord_t`，缩放因子 `SCALING_FACTOR`），避免浮点误差。布尔运算走 Clipper。
